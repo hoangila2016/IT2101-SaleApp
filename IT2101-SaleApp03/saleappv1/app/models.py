@@ -29,3 +29,4 @@ if __name__=="__main__":
         p4 = Product(name="SamSung galaxy ultra", price=2000000, category_id=1)
         db.session.add_all([p1,p2,p3,p4])
         db.session.commit()
+        """ánkjdasdkasbkdbashkdb"""
