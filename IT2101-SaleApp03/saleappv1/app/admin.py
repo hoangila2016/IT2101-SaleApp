@@ -1,0 +1,23 @@
+from app.models import Category,Product
+from app import app,db
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_admin import BaseView,expose
+class MyProductView(ModelView):
+    column_list = ["id","name","price","image"]
+    column_searchable_list = ["name"]
+    column_filters = ["name","price"]
+    column_editable_list = ["name","price"]
+    edit_modal = True
+class MyCategoryView(ModelView):
+    column_list = ["name","id","products"]
+class StatsView(BaseView):
+    @expose("/")
+    def index(self):
+        return self.render("admin/stats.html")
+
+
+admin = Admin(app,name="Quản trị bán hàng",template_mode="bootstrap4")
+admin.add_view(MyCategoryView(Category,db.session))
+admin.add_view(MyProductView(Product,db.session))
+admin.add_view((StatsView(name="Thống kê báo cáo")))
